@@ -1,12 +1,21 @@
-const encrypt = (payload) => {
-  // encrypt the payload and return token
+
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "jsonwebtoken";
+
+const encrypt = (payload)=>{
+  return jwt.sign(payload, SECRET_KEY, {expiresIn:"1h"});
+
 }
 
-const decrypt = (token) => {
-  // return decoded payload
+const decrypt = (token) =>{
+  try {
+    return jwt.verify(token, SECRET_KEY);
+  }catch (error){
+    return null;
+  }
 }
 
-module.exports = {
+module.exports ={
   encrypt,
-  decrypt
+  decrypt,
 }
